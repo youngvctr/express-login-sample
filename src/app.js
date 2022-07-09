@@ -17,6 +17,15 @@ app.engine(
     defaultLayout: 'main',
     layoutsDir: __dirname + '/views/layouts/',
     partialsDir: __dirname + '/views/partials/',
+    helpers: {
+      section(name, options) {
+        if (!this._sections) {
+          this._sections = {};
+        }
+        this._sections[name] = options.fn(this);
+        return null;
+      },
+    },
   })
 );
 app.set('view engine', 'hbs');
@@ -43,7 +52,7 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => res.render('home'));
 app
   .route('/signin')
-  .get((req, res) => res.render('signin', { style: 'signin' }))
+  .get((req, res) => res.render('signin'))
   .post((req, res) => {
     const { id, pw } = req.body;
     const user = users.find((u) => u.id === id && u.pw === pw);
@@ -53,7 +62,7 @@ app
       return res.redirect('/');
     } else {
       req.flash('error', 'email 또는 password가 잘못 되었습니다.');
-      return res.status(400).render('signin', { style: 'signin' });
+      return res.status(400).render('signin');
     }
   });
 app.post('/signout', (req, res) => {
