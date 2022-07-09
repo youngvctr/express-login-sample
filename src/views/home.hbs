@@ -1,3 +1,10 @@
 <h1>Home</h1>
 
-<a href='/login'>로그인</a>
+{{#if signedIn}}
+  <p>안녕하세요. {{currentUser.name}}님.</p>
+  <form action='/signout' method='post'>
+    <button type='submit'>로그아웃</button>
+  </form>
+{{else}}
+  <a href='/signin'>로그인</a>
+{{/if}}
