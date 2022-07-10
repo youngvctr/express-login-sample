@@ -1,9 +1,10 @@
 {{#section 'head'}}
   <link rel='stylesheet' href='/css/signin.css' />
+  <script src='/js/signin.js' defer></script>
 {{/section}}
 
 <main class='form-signin w-100 m-auto'>
-  {{#if messages.error}}
+  <section id='errorMessageSection' style='display: none;'>
     <svg xmlns='http://www.w3.org/2000/svg' style='display: none;'>
       <symbol id='check-circle-fill' fill='currentColor' viewBox='0 0 16 16'>
         <path
@@ -23,11 +24,9 @@
     </svg>
     <div class='alert alert-danger d-flex align-items-center' role='alert'>
       <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'></use></svg>
-      <div>
-        {{messages.error}}
-      </div>
+      <div id='errorMessage'></div>
     </div>
-  {{/if}}
+  </section>
   <form method='post'>
     <img class='mb-4' src='/img/bootstrap-logo.svg' alt='' width='72' height='57' />
     <h1 class='h3 mb-3 fw-normal'>Please sign in</h1>
@@ -41,7 +40,7 @@
       <label for='floatingPassword'>Password</label>
     </div>
 
-    <button class='w-100 btn btn-lg btn-primary' type='submit'>Sign in</button>
+    <button id='signinBtn' class='w-100 btn btn-lg btn-primary' type='submit'>Sign in</button>
 
     <p class='mt-5 mb-3 text-muted'>&copy; 2022 muho</p>
   </form>

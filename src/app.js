@@ -34,7 +34,7 @@ app.set('views', './src/views');
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(helmet());
 app.use(morgan('dev'));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(
   session({
     secret: 'jiovfuinewfiuwfe',
@@ -59,10 +59,10 @@ app
     if (user) {
       req.session.user = user;
       req.session.signedIn = true;
-      return res.redirect('/');
+      return res.json({ succeeded: true });
     } else {
       req.flash('error', 'email 또는 password가 잘못 되었습니다.');
-      return res.status(400).render('signin');
+      return res.status(400).json({ succeeded: false, message: 'email 또는 password가 잘못 되었습니다.' });
     }
   });
 app.post('/signout', (req, res) => {
